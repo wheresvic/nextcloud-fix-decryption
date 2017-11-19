@@ -64,11 +64,11 @@ class Database
         $fileMeta = $result->fetch_all(MYSQLI_ASSOC);
 
         if (empty($fileMeta)) {
-            throw new Exception("Unable to find file in current database - skipping file ($path)", "warning");
+            throw new Exception("Unable to find file in current database - skipping file ($path)");
         }
 
         if (count($fileMeta) > 1) {
-            throw new Exception("Query found to many files - skipping file ($path)", "warning");
+            throw new Exception("Query found to many files - skipping file ($path)");
         }
 
         return $fileMeta[0];
