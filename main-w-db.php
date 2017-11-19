@@ -1,5 +1,10 @@
 <?php
 
+if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+    throw new Exception("Windows is not supported by the programm.");
+}
+
+
 spl_autoload_register(function ($class_name) {
     require 'classes/' . $class_name . '.php';
 });
