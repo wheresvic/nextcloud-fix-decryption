@@ -4,6 +4,23 @@ class Util
 {
 
     /**
+     * @param array $argv
+     * @return string|boolean
+     */
+    public static function getUser($argv)
+    {
+        if (isset($argv[1])) {
+            if ($argv[1] === "-u" && isset($argv[2])) {
+                return $argv[2];
+            } elseif (strpos($argv[1], "--user=") === 0) {
+                return substr($argv[1], 7);
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * @param string $prompt
      * @return string
      * @throws Exception

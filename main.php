@@ -1,12 +1,16 @@
 <?php
 
-// TODO: argument
-define("_USER_", "user");
-
-
 spl_autoload_register(function ($class_name) {
     include 'classes/' . $class_name . '.php';
 });
+
+$user = Util::getUser($argv);
+
+if (empty($user)) {
+    throw new Exception("No argument for user found.");
+}
+
+define("_USER_", $user);
 
 $config = new Config();
 
