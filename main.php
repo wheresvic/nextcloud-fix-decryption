@@ -47,6 +47,12 @@ $storageID = $database->getStorageId(_USER_);
 
 $privateKey = $crypt->decryptPrivateKey($privateKeyCatFile, $password, _USER_);
 
+if (!$privateKey) {
+    $logger->error("Wrong password or corrupted private key");
+
+    die(1);
+}
+
 $encryption = new Encryption(
     $logger,
     $crypt
