@@ -2,13 +2,27 @@
 
 class Util
 {
+
     /**
+     * @param string $prompt
      * @return string
+     * @throws Exception
      */
-    public static function promptPassword()
+    public static function promptPassword($prompt = "Password: ")
     {
-        print "Password: ";
-        return trim(fgets(STDIN));
+        $command = "/usr/bin/env bash -c 'echo OK'";
+        if (rtrim(shell_exec($command)) !== 'OK') {
+            throw new Exception("Can't invoke bash");
+        }
+
+        print $prompt;
+
+        $command = "/usr/bin/env bash -c 'read -s password && echo \$password'";
+        $password = rtrim(exec($command));
+
+        print "\n";
+
+        return $password;
     }
 
     /**
