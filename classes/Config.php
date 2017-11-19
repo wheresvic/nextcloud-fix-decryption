@@ -7,7 +7,7 @@ class Config
 
     public function __construct()
     {
-        $config = @include('config.php');
+        $config = (@include dirname(__DIR__) . '/config.php');
 
         if (!is_array($config)) {
             throw new Exception("No config file found or it is not valid!");

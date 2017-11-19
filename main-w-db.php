@@ -28,8 +28,8 @@ $files = Util::grepFiles(_DATADIR_ . _USER_, $logger);
 
 // Init to log files
 
-$fixedLogFile = "fixed-files.log";
-$skippedLogFile = "skipped-files.log";
+$fixedLogFile = dirname(__DIR__) . "/fixed-files.log";
+$skippedLogFile = dirname(__DIR__) . "/skipped-files.log";
 
 $logger->logFileNewRun($fixedLogFile);
 $logger->logFileNewRun($skippedLogFile);
