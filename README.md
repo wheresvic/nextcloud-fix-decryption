@@ -22,16 +22,31 @@ There are two possible methods to that.
 
 ### First method
 
-The first is build around the function ```fixUnencryptedSize```. This will require the password of the user
+The first is build around the function ```fixUnencryptedSize``` from the Nextcloud sourcecode. This will require the password of the user
 whose files you want to decrypt.
 
-File: ```main.php```
+TODO: want it does
+
+Required config values:
+* ```data_dir```
+* ```instance_id```
+* ```instance_secret```
+* ```current_db```
+
+File to execude: ```main.php USER [-f "/path/to/optional/file"]```
 
 ### Second Method
 
 If you have a database backup with the files in working order you can try this one.
 
-File: ```main-w-db.php```
+TODO: want it does
+
+Required config values:
+* ```data_dir```
+* ```current_db```
+* ```backup_db```
+
+File to execude: ```main-w-db.php USER [-f "/path/to/optional/file"]```
 
 ## Get started
 
@@ -40,3 +55,6 @@ File: ```main-w-db.php```
 * run the file of your selected method with parameter of the user (```php /path/to/script.php -u ncuser``` or ```php /path/to/script.php -user=ncuser```)
 
 I suggest to run debug (dry-run) first, then "test", check the file for success and lastly to run a full cycle.
+
+
+I hope this helps with your recovery. Albeit as a starting point.
