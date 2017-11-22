@@ -78,8 +78,7 @@ foreach ($files as $file) {
 
     $fileKey = $crypt->multiKeyDecrypt($fileKeyCatFile, $shareKeyCatFile, $privateKey);
 
-    // TODO: detect cipher
-    $newData = $encryption->fixUnencryptedSize($file, filesize($file), $fileKey, 'AES-256-CTR');
+    $newData = $encryption->fixUnencryptedSize($file, filesize($file), $fileKey);
 
     if ($newData === false) {
         $logger->error("No solutions found for this file");

@@ -45,9 +45,9 @@ class Encryption
      * return header size of given file
      *
      * @param resource $stream
-     * @return int
+     * @return array
      */
-    protected function getHeaderSize(& $stream)
+    protected function getHeader(& $stream)
     {
         $headerSize = 0;
 
@@ -57,7 +57,10 @@ class Encryption
             $headerSize = $this->headerSize;
         }
 
-        return $headerSize;
+        return [
+            'size' => $headerSize,
+            'cat' => $firstBlock
+        ];
     }
 
     /**
@@ -72,11 +75,9 @@ class Encryption
      *
      * @return array|false calculated unencrypted size
      */
-    public function fixUnencryptedSize($path, $size, $fileKey, $cipher)
+    public function fixUnencryptedSize($path, $size, $fileKey)
     {
         $stream = fopen($path, 'r');
-
-        $headerSize = $this->getHeaderSize($stream);
 
         // if we couldn't open the file we return the old unencrypted size
         if (!is_resource($stream)) {
@@ -84,13 +85,20 @@ class Encryption
             return false;
         }
 
-        $newUnencryptedSize = 0;
-        $size -= $headerSize;
+        // get header and skip it
+        $header = $this->getHeader($stream);
 
-        // if a header exists we skip it
-        if ($headerSize > 0) {
-            fread($stream, $headerSize);
+        $newUnencryptedSize = 0;
+        $size -= $header['size'];
+
+        if ($header['size'] === 0) {
+            $this->logger->error('Could not get header from file.');
+            return false;
         }
+
+        $headerData = $this->crypt->parseHeader($header['cat']);
+
+        $cipher = isset($headerData['cipher']) ? $headerData['cipher'] : $this->crypt::DEFAULT_CIPHER;
 
         // fast path, else the calculation for $lastChunkNr is bogus
         if ($size === 0) {
@@ -107,7 +115,7 @@ class Encryption
         // calculate last chunk position
         $lastChunkPos = ($lastChunkNr * $this->blockSize);
         // try to fseek to the last chunk, if it fails we have to read the whole file
-        if (@fseek($stream, $lastChunkPos) === 0) {
+        if (@fseek($stream, $lastChunkPos, SEEK_SET) === 0) {
             $newUnencryptedSize += $lastChunkNr * $unencryptedBlockSize;
         }
 

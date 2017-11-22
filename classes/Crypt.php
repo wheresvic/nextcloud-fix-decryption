@@ -600,7 +600,7 @@ class Crypt
      * @param string $data
      * @return array
      */
-    protected function parseHeader($data)
+    public function parseHeader($data)
     {
         $result = [];
 
