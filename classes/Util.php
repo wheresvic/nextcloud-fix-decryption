@@ -7,17 +7,36 @@ class Util
      * @param array $argv
      * @return string|boolean
      */
-    public static function getUser($argv)
+    public static function getUser(&$argv)
     {
-        if (isset($argv[1])) {
-            if ($argv[1] === "-u" && isset($argv[2])) {
-                return $argv[2];
-            } elseif (strpos($argv[1], "--user=") === 0) {
-                return substr($argv[1], 7);
-            }
+        if (!empty($argv[1])) {
+            return $argv[1];
         }
 
         return false;
+    }
+
+    /**
+     * @param array $argv
+     * @param \CliLogger $logger
+     * @return string|boolean
+     */
+    public static function getFile(&$argv, &$logger)
+    {
+        if (isset($argv[2])) {
+            if ($argv[2] === "-f" && isset($argv[3])) {
+                $file = $argv[3];
+            } elseif (strpos($argv[2], "--file=") === 0) {
+                $file = substr($argv[2], 7);
+            }
+        }
+
+        if (empty($file) || !file_exists($file)) {
+            $logger->logCli("File does not exist", "warning");
+            return false;
+        }
+
+        return $file;
     }
 
     /**
@@ -47,7 +66,7 @@ class Util
      * @param \CliLogger $logger
      * @return array
      */
-    public static function grepFiles($path, $logger)
+    public static function grepFiles($path, &$logger)
     {
 
         $logger->logCli("grep through files...");

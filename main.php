@@ -67,7 +67,11 @@ $encryption = new Encryption(
     $crypt
 );
 
-$files = Util::grepFiles(_DATADIR_ . _USER_, $logCli);
+if ($customFile = Util::getFile($argv, $logCli)) {
+    $files = array($customFile);
+} else {
+    $files = Util::grepFiles($baseDir, $logCli);
+}
 
 foreach ($files as $file) {
     $ocPath = str_replace($baseDir, "", $file);

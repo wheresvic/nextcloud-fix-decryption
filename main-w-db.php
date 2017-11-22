@@ -33,7 +33,11 @@ if (!is_dir(_DATADIR_ . _USER_)) {
     throw new Exception("There is no directory for the user provided");
 }
 
-$files = Util::grepFiles(_DATADIR_ . _USER_, $logger);
+if ($customFile = Util::getFile($argv, $logger)) {
+    $files = array($customFile);
+} else {
+    $files = Util::grepFiles(_DATADIR_ . _USER_, $logger);
+}
 
 // Init to log files
 
