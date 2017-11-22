@@ -33,7 +33,7 @@ Required config values:
 * ```instance_secret```
 * ```current_db```
 
-File to execude: ```main.php USER [-f "/path/to/optional/file"]```
+File to execute: ```main.php USER [-f "/path/to/optional/file"]```
 
 ### Second Method
 
@@ -46,15 +46,25 @@ Required config values:
 * ```current_db```
 * ```backup_db```
 
-File to execude: ```main-w-db.php USER [-f "/path/to/optional/file"]```
+File to execute: ```main-w-db.php USER [-f "/path/to/optional/file"]```
 
 ## Get started
 
 * clone the repo or download it as a zip
 * copy ```config-sample.php``` to ```config.php``` and enter the correct data in the fields
-* run the file of your selected method with parameter of the user (```php /path/to/script.php -u ncuser``` or ```php /path/to/script.php -user=ncuser```)
+* run the file of your selected method with parameter of the user and optimally a file option if only want to fix a single file
+
+Examples:
+* ```php /home/admin/nextcloud-fix-decryption/main.php frank -f "/var/www/html/nextcloud/data/frank/Pictures/2017211101-151310-0.jpg"```
+* ```php /home/admin/nextcloud-fix-decryption/main-w-db.php bela-m```
 
 I suggest to run debug (dry-run) first, then "test", check the file for success and lastly to run a full cycle.
 
+## Not implemented at the present time
+
+* recovery key support
+* old file versions
+
+---------------------------------------
 
 I hope this helps with your recovery. Albeit as a starting point.
