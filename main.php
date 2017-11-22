@@ -21,12 +21,12 @@ $config = new Config();
 
 define("DEBUG", $config->getValue("debug"));
 define("TEST", $config->getValue("test"));
-define("_instanceId_", $config->getValue("instance_id"));
-define("_instanceSecret_", $config->getValue("instance_secret"));
 
-define("_DATADIR_", $config->getValue("data_dir"));
+$baseDir = $config->getValue("data_dir") . _USER_ . "/";
 
-$baseDir = _DATADIR_ . _USER_ . "/";
+if (!is_dir($baseDir)) {
+    throw new Exception("There is no directory for the user provided");
+}
 
 $privateKeyCatFile = file_get_contents($baseDir . "files_encryption/OC_DEFAULT_MODULE/" . _USER_ . ".privateKey");
 
@@ -38,8 +38,8 @@ $logCli = new CliLogger($colors);
 $crypt = new Crypt(
     $logger,
     _USER_,
-    _instanceId_,
-    _instanceSecret_
+    $config->getValue("instance_id"),
+    $config->getValue("instance_secret")
 );
 
 $dbConnDataCur = $config->getDatabaseConfig((DEBUG) ? "test" : "current");
