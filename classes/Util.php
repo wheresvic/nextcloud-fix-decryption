@@ -70,18 +70,29 @@ class Util
      */
     public static function grepFiles($path, &$logger)
     {
+        $logger->logCli("search through files...");
 
-        $logger->logCli("grep through files...");
+        $findOut = shell_exec("find '" . $path . "files/' -type f");
 
-        $grepOut = shell_exec("grep -lrnw '" . $path . "/files/' -e '^HBEGIN'");
-
-        $logger->logCli("grep completed");
-
-        $files = explode("\n", $grepOut);
+        $files = explode("\n", $findOut);
 
         if (end($files) == "") {
             array_pop($files);
         }
+
+        $files = array_filter($files, function ($file) {
+            $stream = fopen($file, 'r');
+            if (is_resource($stream) && fread($stream, 6) !== "HBEGIN") {
+                $unset = false;
+            } else {
+                $unset = true;
+            }
+            fclose($stream);
+
+            return $unset;
+        });
+
+        $logger->logCli("search completed");
 
         return $files;
     }
