@@ -6,7 +6,7 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 
 
 spl_autoload_register(function ($class_name) {
-    include 'classes/' . $class_name . '.php';
+    require 'classes/' . $class_name . '.php';
 });
 
 $user = Util::getUser($argv);
