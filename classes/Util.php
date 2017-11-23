@@ -31,7 +31,9 @@ class Util
             }
         }
 
-        if (empty($file) || !file_exists($file)) {
+        if (empty($file)) {
+            return false;
+        } elseif (!file_exists($file)) {
             $logger->logCli("File does not exist", "warning");
             return false;
         }
