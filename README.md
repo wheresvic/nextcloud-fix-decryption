@@ -4,10 +4,10 @@ This small program can help to restore inaccessible files encrypted with standar
 
 ## Overview
 
-Nextcloud's encryption requires a unique "file key", the size of the decryption file and the version number
+Nextcloud's encryption requires a unique "file key", the size of the decrypted file and the version number
 to decrypt a file.
 
-If you lost the file size of the decrypted file and or the version number of file this php script might help you.
+If you lost the file size of the decrypted file and or the version number this php script might help you.
 
 Requirements:
 * Linux or rather a UNIX-System to run it on (Windows is not supported)
@@ -25,7 +25,7 @@ There are two possible methods to that.
 The first is build around the function ```fixUnencryptedSize``` from the Nextcloud sourcecode. This will require the password of the user
 whose files you want to decrypt.
 
-TODO: want it does
+<!-- TODO: want it does -->
 
 Required config values:
 * ```data_dir```
@@ -39,7 +39,7 @@ File to execute: ```main.php USER [-f "/path/to/optional/file"]```
 
 If you have a database backup with the files in working order you can try this one.
 
-TODO: want it does
+<!-- TODO: want it does -->
 
 Required config values:
 * ```data_dir```
