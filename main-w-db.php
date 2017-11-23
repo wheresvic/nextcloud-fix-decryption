@@ -1,7 +1,7 @@
 <?php
 
 if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-    throw new Exception("Windows is not supported by the programm.");
+    throw new Exception("Windows is not supported by the program.");
 }
 
 

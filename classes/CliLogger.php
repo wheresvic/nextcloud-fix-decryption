@@ -56,6 +56,7 @@ class CliLogger
 
     /**
      * @param string $file
+     * @param boolean $newFile
      */
     public function logFileNewRun($file, $newFile = false)
     {

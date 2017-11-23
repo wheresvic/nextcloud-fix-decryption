@@ -62,6 +62,7 @@ I suggest to run debug (dry-run) first, then "test", check the file for success 
 
 ## Not implemented at the present time
 
+* non UNIX Systems (e.g. Windows)
 * recovery key support
 * old file versions
 

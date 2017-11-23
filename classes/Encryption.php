@@ -71,7 +71,6 @@ class Encryption
      * @param string $path internal path relative to the storage root
      * @param int $size size of the physical file
      * @param string $fileKey decrypted fileKey of the given file
-     * @param string $cipher cipher which the file was encrypt with
      *
      * @return array|false calculated unencrypted size
      */
