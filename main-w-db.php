@@ -22,21 +22,21 @@ $config = new Config();
 define("DEBUG", $config->getValue("debug"));
 define("TEST", $config->getValue("test"));
 
-define("_DATADIR_", $config->getValue("data_dir"));
+$baseDir = $config->getValue("data_dir") . _USER_ . "/";
 
 
 $logger = new CliLogger(
     new Colors()
 );
 
-if (!is_dir(_DATADIR_ . _USER_)) {
+if (!is_dir($baseDir)) {
     throw new Exception("There is no directory for the user provided");
 }
 
 if ($customFile = Util::getFile($argv, $logger)) {
     $files = array($customFile);
 } else {
-    $files = Util::grepFiles(_DATADIR_ . _USER_, $logger);
+    $files = Util::grepFiles($baseDir, $logger);
 }
 
 // Init to log files
@@ -81,7 +81,7 @@ $storageID = $storeIDCur;
 // for each file repair, if in old database the correct data exists and do verbose logging
 
 foreach ($files as $file) {
-    $ocPath = str_replace(_DATADIR_ . _USER_ . "/", "", $file);
+    $ocPath = str_replace($baseDir, "", $file);
 
     try {
         $fileMetaOld = $oldDatabase->getFile($ocPath, $storageID);
