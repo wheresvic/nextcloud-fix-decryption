@@ -39,7 +39,18 @@ class Encryption
     {
         $this->logger = $logger;
         $this->crypt = $crypt;
+        $this->cipher = $this->crypt->getCipher();
     }
+
+    /**
+	 * decrypt data
+	 *
+	 * @param string $data you want to decrypt
+	 * 
+	 */
+	public function decrypt($data, $fileKey, $version = 0, $position = 0) {
+		return $this->crypt->symmetricDecryptFileContent($data, $fileKey, $this->cipher, $version, $position);
+	}
 
     /**
      * return header size of given file
